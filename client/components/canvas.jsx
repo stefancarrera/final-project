@@ -4,6 +4,7 @@ function Canvas(props) {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [brushColor, setBrushColor] = useState('#000000');
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -23,11 +24,15 @@ function Canvas(props) {
       contextRef.current.lineTo(event.clientX - canvasRef.current.offsetLeft, event.clientY - canvasRef.current.offsetTop);
       contextRef.current.lineCap = 'round';
       contextRef.current.lineJoin = 'round';
-      contextRef.current.strokeStyle = '#000000';
+      contextRef.current.strokeStyle = brushColor;
       contextRef.current.lineWidth = 2;
       contextRef.current.stroke();
     }
     event.preventDefault();
+  };
+
+  const colorPicker = evetn => {
+    setBrushColor(event.target.value);
   };
 
   const stop = event => {
@@ -57,7 +62,7 @@ function Canvas(props) {
         <i type="button" id="eraser" name="eraser" value="eraser" className="fas fa-eraser iconPink"></i>
         <i type="button" id="undoStroke" name="undoStroke" value="Undo" className="fas fa-undo iconRed"></i>
         <i type="button" id="clearCanvas" name="clearCanvas" value="Clear" className="fas fa-times iconRed"></i>
-        <input type="color" id="colorPicker" name="colorPicker" value="#000000"></input>
+        <input onChange={colorPicker} type="color" id="colorPicker" name="colorPicker" value={brushColor}></input>
         <label htmlFor="widthPicker">Width:</label>
         <input type="range" id="widthPicker" name="widthPicker" min="1" max="50" value="2" className="widthPicker"></input>
       </div>
