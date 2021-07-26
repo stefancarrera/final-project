@@ -40,13 +40,19 @@ function Canvas(props) {
       contextRef.current.stroke();
       contextRef.current.closePath();
       setIsDrawing(false);
-    }
-    event.preventDefault();
-
-    if (event.target.type !== 'mouseout') {
-      setDrawingPos(drawingPos.push(contextRef.current.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)));
+      setDrawingPos(drawingPos => [...drawingPos, contextRef.current.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)]);
       setPosIndex(posIndex += 1);
     }
+    event.preventDefault();
+  };
+
+  const mouseOutStop = event => {
+    if (isDrawing) {
+      contextRef.current.stroke();
+      contextRef.current.closePath();
+      setIsDrawing(false);
+    }
+    event.preventDefault();
   };
 
   const colorPicker = event => {
@@ -76,8 +82,8 @@ function Canvas(props) {
     if (posIndex <= 0) {
       clearCanvas();
     } else {
-      posIndex -= 1;
-      drawingPos.pop();
+      setPosIndex(posIndex -= 1);
+      setDrawingPos(drawingPos.slice(0, -1));
       contextRef.current.putImageData(drawingPos[posIndex], 0, 0);
     }
   };
@@ -89,7 +95,7 @@ function Canvas(props) {
       onMouseDown={start}
       onMouseMove={draw}
       onMouseUp={stop}
-      onMouseOut={stop}
+      onMouseOut={mouseOutStop}
       onTouchStart={start}
       onTouchMove={draw}
       onTouchEnd={stop}
