@@ -9,6 +9,7 @@ function Canvas(props) {
   const [lastBrush, setLastBrush] = useState('#000000');
   const [drawingPos, setDrawingPos] = useState([]);
   let [posIndex, setPosIndex] = useState(-1);
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -88,8 +89,24 @@ function Canvas(props) {
     }
   };
 
+  const handleClick = event => {
+    if (!isClicked) {
+      setIsClicked(true);
+    } else {
+      setIsClicked(false);
+    }
+  };
+
+  const hidden = event => {
+    if (!isClicked) {
+      return 'menu hidden';
+    } else {
+      return 'menu';
+    }
+  };
+
   return (
-    <div className="container">
+    <div className="flex">
       <canvas
       ref={canvasRef}
       onMouseDown={start}
@@ -102,7 +119,7 @@ function Canvas(props) {
       width="500"
       height="500">
       </canvas>
-      <div className="navBar">
+      <div className="navBar ">
         <i type="button" onClick={pickBrush} id="brush" name="brush" value="brush" className="fas fa-paint-brush fa-2x iconWhite"></i>
         <i type="button" onClick={pickEraser} id="eraser" name="eraser" value="eraser" className="fas fa-eraser fa-2x iconPink"></i>
         <i type="button" onClick={undoStroke} id="undoStroke" name="undoStroke" value="Undo" className="fas fa-undo fa-2x iconRed"></i>
@@ -110,6 +127,13 @@ function Canvas(props) {
         <input onChange={colorPicker} type="color" id="colorPicker" name="colorPicker"></input>
         <label htmlFor="widthPicker">Width:</label>
         <input onChange={widthPicker} type="range" id="widthPicker" name="widthPicker" min="1" max="50" value={brushWidth} className="widthPicker"></input>
+        <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x iconPink"></i>
+        <div id="menu" name="menu" className={hidden()}>
+          <a id="saveImg">Save Image</a>
+          <a id="gallery">Gallery</a>
+          <a id="myImgs">My Images</a>
+          <a id="canvasPg">Canvas</a>
+        </div>
       </div>
     </div>
   );
