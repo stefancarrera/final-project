@@ -5,6 +5,7 @@ const jsonMiddleware = express.json();
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const fs = require('fs');
+const ClientError = require('./client-error');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -18,8 +19,57 @@ const app = express();
 app.use(staticMiddleware);
 app.use(jsonMiddleware);
 
-app.get('/api/test', (req, res) => {
-  res.json({ test: 'This is a Test' });
+app.get('/api/userDrawingsURL', (req, res) => {
+  const sql = `
+    select "drawing",
+           "drawingId"
+    from "drawings"
+    where "userId" = 1
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+});
+
+app.get('/api/drawings', (req, res) => {
+  const sql = `
+  select *
+  from "drawings"
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+});
+
+app.delete('/api/drawings/:drawingId', (req, res, next) => {
+  const drawingId = parseInt(req.params.drawingId, 10);
+  if (!Number.isInteger(drawingId) || drawingId < 1) {
+    throw new ClientError(400, 'drawingId must be a positive integer');
+  }
+  const sql = `
+  delete from "drawings"
+    where "drawingId" = $1
+  returning *
+  `;
+  const params = [drawingId];
+  db.query(sql, params)
+    .then(result => {
+      const [deletedDrawing] = result.rows;
+      if (!deletedDrawing) {
+        throw new ClientError(400, 'cannot find drawing with that drawingId');
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch(err => next(err));
 });
 
 app.post('/api/saveImg', (req, res, next) => {
