@@ -9,6 +9,7 @@ function Canvas(props) {
   const [lastBrush, setLastBrush] = useState('#000000');
   const [drawingPos, setDrawingPos] = useState([]);
   let [posIndex, setPosIndex] = useState(-1);
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -88,8 +89,51 @@ function Canvas(props) {
     }
   };
 
+  const handleClick = event => {
+    if (!isClicked) {
+      setIsClicked(true);
+    } else {
+      setIsClicked(false);
+    }
+  };
+
+  const hidden = event => {
+    if (!isClicked) {
+      return 'menu hidden';
+    } else {
+      return 'menu';
+    }
+  };
+
+  const fillBackground = event => {
+    contextRef.current.save();
+    contextRef.current.globalCompositeOperation = 'destination-over';
+    contextRef.current.fillStyle = 'white';
+    contextRef.current.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    contextRef.current.restore();
+  };
+
+  const saveImg = event => {
+    event.preventDefault();
+    fillBackground();
+    const img = canvasRef.current.toDataURL('image/png');
+    const img2 = img.slice(22);
+    const imgObj = { imgObj: img2 };
+    fetch('/api/saveImg', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(imgObj)
+    })
+      .then(response => response.json())
+      // eslint-disable-next-line no-console
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
+  };
+
   return (
-    <div className="container">
+    <div className="flex">
       <canvas
       ref={canvasRef}
       onMouseDown={start}
@@ -110,6 +154,13 @@ function Canvas(props) {
         <input onChange={colorPicker} type="color" id="colorPicker" name="colorPicker"></input>
         <label htmlFor="widthPicker">Width:</label>
         <input onChange={widthPicker} type="range" id="widthPicker" name="widthPicker" min="1" max="50" value={brushWidth} className="widthPicker"></input>
+        <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x iconPink"></i>
+        <div id="menu" name="menu" className={hidden()}>
+          <a id="saveImg" onClick={saveImg}>Save Image</a>
+          <a id="gallery">Gallery</a>
+          <a id="myImgs">My Images</a>
+          <a id="canvasPg">Canvas</a>
+        </div>
       </div>
     </div>
   );
