@@ -105,6 +105,33 @@ function Canvas(props) {
     }
   };
 
+  const fillBackground = event => {
+    contextRef.current.save();
+    contextRef.current.globalCompositeOperation = 'destination-over';
+    contextRef.current.fillStyle = 'white';
+    contextRef.current.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    contextRef.current.restore();
+  };
+
+  const saveImg = event => {
+    event.preventDefault();
+    fillBackground();
+    const img = canvasRef.current.toDataURL('image/png');
+    const img2 = img.slice(22);
+    const imgObj = { imgObj: img2 };
+    fetch('/api/saveImg', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(imgObj)
+    })
+      .then(response => response.json())
+      // eslint-disable-next-line no-console
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
+  };
+
   return (
     <div className="flex">
       <canvas
@@ -119,7 +146,7 @@ function Canvas(props) {
       width="500"
       height="500">
       </canvas>
-      <div className="navBar ">
+      <div className="navBar">
         <i type="button" onClick={pickBrush} id="brush" name="brush" value="brush" className="fas fa-paint-brush fa-2x iconWhite"></i>
         <i type="button" onClick={pickEraser} id="eraser" name="eraser" value="eraser" className="fas fa-eraser fa-2x iconPink"></i>
         <i type="button" onClick={undoStroke} id="undoStroke" name="undoStroke" value="Undo" className="fas fa-undo fa-2x iconRed"></i>
@@ -129,7 +156,7 @@ function Canvas(props) {
         <input onChange={widthPicker} type="range" id="widthPicker" name="widthPicker" min="1" max="50" value={brushWidth} className="widthPicker"></input>
         <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x iconPink"></i>
         <div id="menu" name="menu" className={hidden()}>
-          <a id="saveImg">Save Image</a>
+          <a id="saveImg" onClick={saveImg}>Save Image</a>
           <a id="gallery">Gallery</a>
           <a id="myImgs">My Images</a>
           <a id="canvasPg">Canvas</a>

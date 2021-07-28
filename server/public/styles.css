@@ -24,9 +24,11 @@ label {
   flex-direction: column;
   align-items: center;
   margin: auto;
+  min-width: 500px;
 }
 
 .navBar {
+  position: relative;
   display: flex;
   margin: 0;
   width: 500px;
@@ -60,7 +62,7 @@ label {
   background-color: #c4c4c4;
   width: 100px;
   height: 130px;
-  top: 401px;
-  left: 546px;
+  top: -131px;
+  left: 399px;
   position: absolute;
 }

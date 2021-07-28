@@ -1,5 +1,5 @@
 import React from 'react';
-import Canvas from '../components/canvas';
+import Canvas from '../pages/canvas';
 
 export default function Home(props) {
   return (
