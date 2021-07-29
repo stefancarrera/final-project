@@ -130,6 +130,7 @@ function Canvas(props) {
       // eslint-disable-next-line no-console
       .then(data => console.log(data))
       .catch(err => console.error(err));
+    clearCanvas();
   };
 
   return (
@@ -157,7 +158,7 @@ function Canvas(props) {
         <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x iconPink"></i>
         <div id="menu" name="menu" className={hidden()}>
           <a id="saveImg" onClick={saveImg}>Save Image</a>
-          <a id="gallery">Gallery</a>
+          <a id="golbalGallery">Golbal Gallery</a>
           <a id="myImgs" href="#userGallery">My Images</a>
           <a id="canvasPg">Canvas</a>
         </div>

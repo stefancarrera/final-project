@@ -5,6 +5,7 @@ import Header from './components/header';
 import UserGallery from './pages/userGallery';
 import BtmNav from './components/btmNav';
 import parseRoute from './lib/parse-route';
+import ImgPg from './pages/imgPg';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -30,6 +31,15 @@ export default class App extends React.Component {
        <>
         <UserGallery />
         <BtmNav />
+      </>
+      );
+    }
+    if (route.path === 'drawings') {
+      const drawingId = route.params.get('drawingId');
+      return (
+      <>
+      <ImgPg drawingId={drawingId} />
+      <BtmNav />
       </>
       );
     }
