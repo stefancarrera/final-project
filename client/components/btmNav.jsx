@@ -31,8 +31,7 @@ export default class BtmNav extends React.Component {
       <div className="navBar userG">
       <i type="button" onClick={this.handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x iconPink userMenu"></i>
       <div id="menu" name="menu" className={this.hidden()}>
-        {/* <a id="saveImg">Save Image</a> */}
-        <a id="golbalGallery">Golbal Gallery</a>
+        <a id="globalGallery" href="#globalGallery">Global Gallery</a>
         <a id="myImgs" href="#userGallery">My Images</a>
         <a id="canvasPg" href="">Canvas</a>
       </div>

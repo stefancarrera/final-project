@@ -6,6 +6,8 @@ import UserGallery from './pages/userGallery';
 import BtmNav from './components/btmNav';
 import parseRoute from './lib/parse-route';
 import ImgPg from './pages/imgPg';
+import GlobalGallery from './pages/globalGallery';
+import GlbImgPg from './pages/glbImgPg';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -41,6 +43,23 @@ export default class App extends React.Component {
       <ImgPg drawingId={drawingId} />
       <BtmNav />
       </>
+      );
+    }
+    if (route.path === 'globalGallery') {
+      return (
+      <>
+      <GlobalGallery />
+      <BtmNav />
+      </>
+      );
+    }
+    if (route.path === 'glbdrawings') {
+      const drawingId = route.params.get('drawingId');
+      return (
+        <>
+        <GlbImgPg drawingId={drawingId}/>
+        <BtmNav />
+        </>
       );
     }
   }
