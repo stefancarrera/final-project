@@ -21,7 +21,7 @@ function Canvas(props) {
     setIsDrawing(true);
     contextRef.current.beginPath();
     contextRef.current.moveTo(event.clientX - canvasRef.current.offsetLeft, event.clientY - canvasRef.current.offsetTop);
-    event.preventDefault();
+    // event.preventDefault();
   };
 
   const draw = event => {
@@ -33,7 +33,7 @@ function Canvas(props) {
       contextRef.current.lineWidth = brushWidth;
       contextRef.current.stroke();
     }
-    event.preventDefault();
+    // event.preventDefault();
   };
 
   const stop = event => {
@@ -44,7 +44,7 @@ function Canvas(props) {
       setDrawingPos(drawingPos => [...drawingPos, contextRef.current.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)]);
       setPosIndex(posIndex += 1);
     }
-    event.preventDefault();
+    // event.preventDefault();
   };
 
   const mouseOutStop = event => {
@@ -53,7 +53,7 @@ function Canvas(props) {
       contextRef.current.closePath();
       setIsDrawing(false);
     }
-    event.preventDefault();
+    // event.preventDefault();
   };
 
   const colorPicker = event => {
@@ -144,6 +144,9 @@ function Canvas(props) {
       onTouchStart={start}
       onTouchMove={draw}
       onTouchEnd={stop}
+      onPointerDown={start}
+      onPointerMove={draw}
+      onPointerUp={stop}
       width="500"
       height="500">
       </canvas>
@@ -157,10 +160,10 @@ function Canvas(props) {
         <input onChange={widthPicker} type="range" id="widthPicker" name="widthPicker" min="1" max="50" value={brushWidth} className="widthPicker"></input>
         <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x iconPink"></i>
         <div id="menu" name="menu" className={hidden()}>
-          <a id="saveImg" onClick={saveImg}>Save Image</a>
-          <a id="golbalGallery">Golbal Gallery</a>
+          <a id="saveImg" href="" onClick={saveImg}>Save Image</a>
+          <a id="globalGallery" href="#globalGallery">Global Gallery</a>
           <a id="myImgs" href="#userGallery">My Images</a>
-          <a id="canvasPg">Canvas</a>
+          <a id="canvasPg" href="">Canvas</a>
         </div>
       </div>
     </>
