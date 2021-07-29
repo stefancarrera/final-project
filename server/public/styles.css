@@ -2,6 +2,18 @@
   display: none !important;
 }
 
+a {
+  cursor: pointer;
+}
+
+i {
+  cursor: pointer;
+}
+
+input {
+  cursor: pointer;
+}
+
 canvas {
   margin-top: 2rem;
   margin-bottom: 2rem;
