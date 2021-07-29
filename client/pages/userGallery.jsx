@@ -6,6 +6,7 @@ export default class UserGallery extends React.Component {
     this.state = {
       drawings: []
     };
+
   }
 
   componentDidMount() {
@@ -17,16 +18,20 @@ export default class UserGallery extends React.Component {
 
   render() {
     return (
-      <div className="flex">
+      <>
+      <div>
         <div className="row">
           {
           this.state.drawings.map(drawings => (
             <div key={drawings.drawingId} className="col">
+              <a href={`#drawings?drawingId=${drawings.drawingId}`}>
               <img src={drawings.drawing.slice(14)}></img>
+              </a>
             </div>))
           }
         </div>
       </div>
+      </>
     );
   }
 }

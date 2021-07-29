@@ -37,6 +37,11 @@ img {
   margin: 20px 0;
 }
 
+.imgPgImg {
+  width: 500px;
+  height: 500px;
+}
+
 .topDiv {
   display: flex;
   flex-wrap: wrap;
@@ -60,6 +65,7 @@ img {
   flex-wrap: wrap;
   align-items: center;
   margin: auto;
+  position: relative;
 }
 
 .col {
@@ -119,4 +125,12 @@ img {
 
 .menuCom {
   left: 0;
+}
+
+.miniNav {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 500px;
+  margin-bottom: 2rem;
 }

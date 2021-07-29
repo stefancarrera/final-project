@@ -49,6 +49,30 @@ app.get('/api/drawings', (req, res) => {
     });
 });
 
+app.get('/api/drawingURL/:drawingId', (req, res, next) => {
+  const drawingId = parseInt(req.params.drawingId, 10);
+  if (!Number.isInteger(drawingId) || drawingId < 1) {
+    throw new ClientError(400, 'drawingId must be a positive integer');
+  }
+  const sql = `
+  select "drawing"
+  from "drawings"
+  where "drawingId" = $1
+  `;
+  const params = [drawingId];
+  db.query(sql, params)
+    .then(result => {
+      const [selectedDrawing] = result.rows;
+      if (!selectedDrawing) {
+        throw new ClientError(400, 'drawingId must be a positive integer');
+      }
+      res.json(result.rows);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+});
+
 app.delete('/api/drawings/:drawingId', (req, res, next) => {
   const drawingId = parseInt(req.params.drawingId, 10);
   if (!Number.isInteger(drawingId) || drawingId < 1) {
