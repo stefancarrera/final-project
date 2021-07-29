@@ -133,7 +133,7 @@ function Canvas(props) {
   };
 
   return (
-    <div className="flex">
+    <>
       <canvas
       ref={canvasRef}
       onMouseDown={start}
@@ -158,11 +158,11 @@ function Canvas(props) {
         <div id="menu" name="menu" className={hidden()}>
           <a id="saveImg" onClick={saveImg}>Save Image</a>
           <a id="gallery">Gallery</a>
-          <a id="myImgs">My Images</a>
+          <a id="myImgs" href="#userGallery">My Images</a>
           <a id="canvasPg">Canvas</a>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
