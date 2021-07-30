@@ -158,12 +158,12 @@ function Canvas(props) {
         <input onChange={colorPicker} type="color" id="colorPicker" name="colorPicker"></input>
         <label htmlFor="widthPicker">Width:</label>
         <input onChange={widthPicker} type="range" id="widthPicker" name="widthPicker" min="1" max="50" value={brushWidth} className="widthPicker"></input>
-        <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x iconPink"></i>
+        <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x iconWhite"></i>
         <div id="menu" name="menu" className={hidden()}>
           <a id="saveImg" href="" onClick={saveImg}>Save Image</a>
           <a id="globalGallery" href="#globalGallery">Global Gallery</a>
           <a id="myImgs" href="#userGallery">My Images</a>
-          <a id="canvasPg" href="">Canvas</a>
+          <a id="canvasPg" href="">New Canvas</a>
         </div>
       </div>
     </>

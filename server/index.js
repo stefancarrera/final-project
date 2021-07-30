@@ -24,7 +24,7 @@ app.get('/api/userDrawingsURL', (req, res) => {
     select "drawing",
            "drawingId"
     from "drawings"
-    where "userId" = 2
+    where "userId" = 1
   `;
   db.query(sql)
     .then(result => {
@@ -108,7 +108,7 @@ app.post('/api/saveImg', (req, res, next) => {
   const url = newImg;
   const sql = `
   insert into "drawings" ("userId", "drawing")
-  values (2, $1)
+  values (1, $1)
   returning *
   `;
   const params = [url];

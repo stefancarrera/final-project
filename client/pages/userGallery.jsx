@@ -21,7 +21,7 @@ export default class UserGallery extends React.Component {
       <>
         <div className="col headerTwo">
           <h1 className="headerTwoH1">Welcome to Your Personal Gallery</h1>
-          <h3>Here you can see all your drawings!</h3>
+          <h2>Here you can see all your drawings!</h2>
         </div>
       <div>
         <div className="row">

@@ -5,7 +5,7 @@
 a {
   cursor: pointer;
   font-family: 'Covered By Your Grace', cursive;
-  color: white;
+  color: #000;
   font-size: x-large;
   text-decoration: none;
 }
@@ -20,8 +20,9 @@ i {
 
 label {
   font-family: 'Covered By Your Grace', cursive;
-  color: white;
-  font-size: x-large;
+
+  /* color: white; */
+  font-size: xx-large;
   margin-right: 0;
 }
 
@@ -36,10 +37,6 @@ canvas {
   background-color: white;
   width: 500px;
   height: 500px;
-}
-
-body {
-  background-color: #282b2d;
 }
 
 img {
@@ -60,7 +57,11 @@ img {
   margin: auto;
   align-items: center;
   max-width: 900px;
-  background-color: #46494c;
+  background-image: url(./images/bg/bodyBG.png);
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: center;
+  box-shadow: 0 0 20px 20px white inset;
 }
 
 .header {
@@ -70,8 +71,10 @@ img {
   margin-top: 0;
   padding-top: 0;
   font-family: 'Permanent Marker', cursive;
-  color: white;
+  color: black;
   text-align: center;
+  background-image: url(./images/bg/headerBG.png);
+  border: solid 2px black;
 }
 
 .header1H1 {
@@ -98,9 +101,10 @@ img {
   margin: 0;
   width: 100%;
   height: 50px;
-  background-color: #c4c4c4;
   justify-content: space-evenly;
   align-items: center;
+  border: solid 2px black;
+  background-image: url(./images/bg/headerBG.png);
 }
 
 .userG {
@@ -113,7 +117,7 @@ img {
 }
 
 .iconWhite {
-  color: white;
+  color: black;
 }
 
 .iconPink {
@@ -133,12 +137,14 @@ img {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: #c4c4c4;
+  background-image: url(./images/bg/menuBG.png);
+  background-repeat: repeat;
   width: 120px;
   height: 200px;
-  top: -201px;
-  left: 781px;
+  top: -202px;
+  left: 779px;
   position: absolute;
+  border: solid 2px black;
 }
 
 .menuCom {
@@ -155,7 +161,6 @@ img {
 
 .headerTwo {
   font-family: 'Covered By Your Grace', cursive;
-  color: white;
 }
 
 .headerTwoH1 {
