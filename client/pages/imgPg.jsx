@@ -36,8 +36,8 @@ export default class ImgPg extends React.Component {
       <div className="col">
         <img onClick={this.handleClick} src={drawing.slice(14)} className="imgPgImg"></img>
         <div className="miniNav">
-          <a type="button" href={drawing.slice(14)} download title="Download your picture" className="fas fa-download fa-2x iconWhite"></a>
-          <a type="button" onClick={this.handleClick} id="delete" title="Delete your picture" className="fas fa-trash-alt fa-2x iconWhite"></a>
+          <a type="button" href={drawing.slice(14)} download title="Download your picture" className="fas fa-download fa-2x iconGreen"></a>
+          <a type="button" onClick={this.handleClick} id="delete" title="Delete your picture" className="fas fa-trash-alt fa-2x iconBlack"></a>
         </div>
       </div>
     );

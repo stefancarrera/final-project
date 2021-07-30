@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-function Canvas(props) {
+function Canvas() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -113,6 +113,11 @@ function Canvas(props) {
     contextRef.current.restore();
   };
 
+  const paintBucket = event => {
+    contextRef.current.fillStyle = lastBrush;
+    contextRef.current.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+  };
+
   const saveImg = event => {
     event.preventDefault();
     fillBackground();
@@ -151,14 +156,16 @@ function Canvas(props) {
       height="500">
       </canvas>
       <div className="navBar">
-        <i type="button" onClick={pickBrush} id="brush" name="brush" value="brush" className="fas fa-paint-brush fa-2x iconWhite"></i>
-        <i type="button" onClick={pickEraser} id="eraser" name="eraser" value="eraser" className="fas fa-eraser fa-2x iconPink"></i>
-        <i type="button" onClick={undoStroke} id="undoStroke" name="undoStroke" value="Undo" className="fas fa-undo fa-2x iconRed"></i>
-        <i type="button" onClick={clearCanvas} id="clearCanvas" name="clearCanvas" value="Clear" className="fas fa-times fa-2x iconRed"></i>
-        <input onChange={colorPicker} type="color" id="colorPicker" name="colorPicker"></input>
-        <label htmlFor="widthPicker">Width:</label>
-        <input onChange={widthPicker} type="range" id="widthPicker" name="widthPicker" min="1" max="50" value={brushWidth} className="widthPicker"></input>
-        <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x iconWhite"></i>
+        <i type="button" onClick={pickBrush} title="Brush Tool" className="fas fa-paint-brush fa-2x iconWhite"></i>
+        <i type="button" onClick={pickEraser} title="Eraser Tool" className="fas fa-eraser fa-2x iconPink"></i>
+        <i type="button" onClick={paintBucket} title="Paint Bucket Tool" className="fas fa-fill-drip fa-2x iconBlack"></i>
+        <i type="button" onClick={undoStroke} title="Undo Stroke" className="fas fa-undo fa-2x iconDarkG"></i>
+        <i type="button" onClick={clearCanvas} title="Clear the Canvas" className="fas fa-times fa-2x iconRed"></i>
+        <label htmlFor="colorPicker">Color Picker:</label>
+        <input onChange={colorPicker} type="color" name="colorPicker" title="Color Picker"></input>
+        <label htmlFor="widthPicker">Tool Width:</label>
+        <input onChange={widthPicker} type="range" name="widthPicker" title="Width Picker" min="1" max="50" value={brushWidth} className="widthPicker"></input>
+        <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x iconBlack"></i>
         <div id="menu" name="menu" className={hidden()}>
           <a id="saveImg" href="" onClick={saveImg}>Save Image</a>
           <a id="globalGallery" href="#globalGallery">Global Gallery</a>
