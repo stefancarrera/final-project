@@ -20,7 +20,7 @@ export default class GlobalGallery extends React.Component {
     <>
       <div className="col headerTwo">
         <h1 className="headerTwoH1">Welcome to the Global Gallery</h1>
-        <h3>Here you can see drawings from all users!</h3>
+        <h2>Here you can see drawings from all users!</h2>
       </div>
       <div className="row">
         {
