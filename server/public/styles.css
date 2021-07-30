@@ -10,12 +10,20 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: white;
+}
+
 i {
   cursor: pointer;
   font-family: 'Covered By Your Grace', cursive;
   color: white;
   font-size: x-large;
   text-decoration: none;
+}
+
+i:hover {
+  color: #31a819;
 }
 
 label {
@@ -117,11 +125,15 @@ img {
 }
 
 .iconWhite {
+  color: white;
+}
+
+.iconBlack {
   color: black;
 }
 
 .iconPink {
-  color: #db2955;
+  color: hotpink;
 }
 
 .iconDarkG {
@@ -130,6 +142,10 @@ img {
 
 .iconRed {
   color: red;
+}
+
+.iconGreen {
+  color: #31a819;
 }
 
 .menu {
