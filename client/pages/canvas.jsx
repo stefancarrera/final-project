@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 function Canvas() {
-  const canvasRef = useRef(null);
-  const contextRef = useRef(null);
+  const canvasRef = useRef();
+  const contextRef = useRef();
   const [isDrawing, setIsDrawing] = useState(false);
   const [brushColor, setBrushColor] = useState('#000000');
   const [brushWidth, setBrushWidth] = useState(2);
@@ -17,14 +17,13 @@ function Canvas() {
     contextRef.current = context;
   }, []);
 
-  const start = event => {
+  const start = () => {
     setIsDrawing(true);
     contextRef.current.beginPath();
     contextRef.current.moveTo(event.clientX - canvasRef.current.offsetLeft, event.clientY - canvasRef.current.offsetTop);
-    // event.preventDefault();
   };
 
-  const draw = event => {
+  const draw = () => {
     if (isDrawing) {
       contextRef.current.lineTo(event.clientX - canvasRef.current.offsetLeft, event.clientY - canvasRef.current.offsetTop);
       contextRef.current.lineCap = 'round';
@@ -33,10 +32,9 @@ function Canvas() {
       contextRef.current.lineWidth = brushWidth;
       contextRef.current.stroke();
     }
-    // event.preventDefault();
   };
 
-  const stop = event => {
+  const stop = () => {
     if (isDrawing) {
       contextRef.current.stroke();
       contextRef.current.closePath();
@@ -44,42 +42,40 @@ function Canvas() {
       setDrawingPos(drawingPos => [...drawingPos, contextRef.current.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)]);
       setPosIndex(posIndex += 1);
     }
-    // event.preventDefault();
   };
 
-  const mouseOutStop = event => {
+  const mouseOutStop = () => {
     if (isDrawing) {
       contextRef.current.stroke();
       contextRef.current.closePath();
       setIsDrawing(false);
     }
-    // event.preventDefault();
   };
 
-  const colorPicker = event => {
+  const colorPicker = () => {
     setBrushColor(event.target.value);
     setLastBrush(event.target.value);
   };
 
-  const widthPicker = event => {
+  const widthPicker = () => {
     setBrushWidth(event.target.value);
   };
 
-  const pickEraser = event => {
+  const pickEraser = () => {
     setBrushColor('#ffffff');
   };
 
-  const pickBrush = event => {
+  const pickBrush = () => {
     setBrushColor(lastBrush);
   };
 
-  const clearCanvas = event => {
+  const clearCanvas = () => {
     contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     setDrawingPos([]);
     setPosIndex(-1);
   };
 
-  const undoStroke = event => {
+  const undoStroke = () => {
     if (posIndex <= 0) {
       clearCanvas();
     } else {
@@ -89,7 +85,7 @@ function Canvas() {
     }
   };
 
-  const handleClick = event => {
+  const handleClick = () => {
     if (!isClicked) {
       setIsClicked(true);
     } else {
@@ -97,7 +93,7 @@ function Canvas() {
     }
   };
 
-  const hidden = event => {
+  const hidden = () => {
     if (!isClicked) {
       return 'menu hidden';
     } else {
@@ -105,7 +101,7 @@ function Canvas() {
     }
   };
 
-  const fillBackground = event => {
+  const fillBackground = () => {
     contextRef.current.save();
     contextRef.current.globalCompositeOperation = 'destination-over';
     contextRef.current.fillStyle = 'white';
@@ -113,12 +109,12 @@ function Canvas() {
     contextRef.current.restore();
   };
 
-  const paintBucket = event => {
+  const paintBucket = () => {
     contextRef.current.fillStyle = lastBrush;
     contextRef.current.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
   };
 
-  const saveImg = event => {
+  const saveImg = () => {
     event.preventDefault();
     fillBackground();
     const img = canvasRef.current.toDataURL('image/png');
