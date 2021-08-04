@@ -10,7 +10,7 @@ export default class UserGallery extends React.Component {
   }
 
   componentDidMount() {
-    fetch('api/userDrawingsURL')
+    fetch('/api/userDrawingsURL')
       .then(response => response.json())
       .then(data => this.setState({ drawings: data }))
       .catch(err => console.error(err));

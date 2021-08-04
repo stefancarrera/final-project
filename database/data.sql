@@ -1,5 +1,5 @@
 insert into "users"
-  ("firstName", "lastName", "password", "email")
+  ("password", "email")
   values
-    ('Billy', 'Pancakes', 'password1', 'bpancakes@example.com'),
-    ('Julie', 'Waffles', 'passwordA', 'jwaffles@example.com');
+    ('password1', 'bpancakes@example.com'),
+    ('passwordA', 'jwaffles@example.com');
