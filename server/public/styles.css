@@ -28,8 +28,6 @@ i:hover {
 
 label {
   font-family: 'Covered By Your Grace', cursive;
-
-  /* color: white; */
   font-size: xx-large;
   margin-right: 0;
 }
@@ -60,7 +58,6 @@ img {
 
 .top-div {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   margin: auto;
   align-items: center;
@@ -70,6 +67,7 @@ img {
   background-attachment: fixed;
   background-position: center;
   box-shadow: 0 0 20px 20px white inset;
+  position: relative;
 }
 
 .header {
@@ -87,6 +85,7 @@ img {
 
 .header1-h1 {
   font-size: 60px;
+  text-align: center;
 }
 
 .row {
@@ -106,9 +105,10 @@ img {
 .nav-bar {
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   margin: 0;
   width: 100%;
-  height: 50px;
+  height: 100%;
   justify-content: space-evenly;
   align-items: center;
   border: solid 2px black;
@@ -157,14 +157,27 @@ img {
   background-repeat: repeat;
   width: 120px;
   height: 200px;
-  top: -202px;
-  left: 779px;
-  position: absolute;
   border: solid 2px black;
 }
 
 .menu-com {
   left: 0;
+}
+
+.menu-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  top: -201px;
+  position: absolute;
+}
+
+.canvas-menu-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  top: 466px;
+  position: absolute;
 }
 
 .mini-nav {
@@ -181,22 +194,38 @@ img {
 
 .header-two-h1 {
   font-size: 50px;
+  text-align: center;
 }
 
-.root {
-  position: fixed;
-}
-
-@media screen and (max-width: 600px) {
-  .nav-bar {
-    flex-wrap: wrap;
-    height: 100%;
+@media screen and (max-width: 500px) {
+  .canvas-menu-row {
+    top: 540px;
   }
 
   canvas {
-    /* width: 375px; */
+    height: 300px;
+    width: 300px;
   }
 
+  .header1-h1 {
+    font-size: 40px;
+  }
+
+  label {
+    font-size: x-large;
+  }
+
+  .img-pg-img {
+    width: 300px;
+    height: 300px;
+  }
+
+  .top-div {
+    height: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
   .header1-h1 {
     font-size: 50px;
   }
@@ -204,4 +233,15 @@ img {
   .top-div {
     width: 100%;
   }
+
+  /* .menu-row {
+    left: 603px;
+  } */
+}
+
+@media screen and (min-width: 900px) {
+  /* .menu {
+    left: 779px;
+  }
+} */
 }

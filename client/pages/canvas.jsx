@@ -10,13 +10,22 @@ function Canvas() {
   const [drawingPos, setDrawingPos] = useState([]);
   let [posIndex, setPosIndex] = useState(-1);
   const [isClicked, setIsClicked] = useState(false);
+  const [canvasSize, setCanvasSize] = useState('500');
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     contextRef.current = context;
-    // canvasRef.current.focus();
+    window.addEventListener('resize', changeCanvasSize);
   }, []);
+
+  const changeCanvasSize = () => {
+    if (window.innerWidth <= 500) {
+      setCanvasSize(300);
+    } else {
+      setCanvasSize(500);
+    }
+  };
 
   const start = () => {
     setIsDrawing(true);
@@ -113,9 +122,9 @@ function Canvas() {
 
   const hidden = () => {
     if (!isClicked) {
-      return 'menu hidden';
+      return 'canvas-menu-row hidden';
     } else {
-      return 'menu';
+      return 'canvas-menu-row';
     }
   };
 
@@ -166,8 +175,8 @@ function Canvas() {
       onPointerDown={start}
       onPointerMove={draw}
       onPointerUp={stop}
-      width="500"
-      height="500"
+      width={canvasSize}
+      height={canvasSize}
       >
       </canvas>
       <div className="nav-bar">
@@ -181,12 +190,14 @@ function Canvas() {
         <label htmlFor="widthPicker">Tool Width:</label>
         <input onChange={widthPicker} type="range" name="widthPicker" title="Width Picker" min="1" max="50" value={brushWidth} className="width-picker"></input>
         <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x icon-black"></i>
-        <div id="menu" name="menu" className={hidden()}>
-          <a id="saveImg" href="" onClick={saveImg}>Save Image</a>
-          <a id="globalGallery" href="#globalGallery">Global Gallery</a>
-          <a id="myImgs" href="#userGallery">My Images</a>
-          <a id="canvasPg" href="">New Canvas</a>
-        </div>
+      </div>
+      <div className={hidden()}>
+      <div id="menu" name="menu" className="menu">
+        <a id="saveImg" href="" onClick={saveImg}>Save Image</a>
+        <a id="globalGallery" href="#globalGallery">Global Gallery</a>
+        <a id="myImgs" href="#userGallery">My Images</a>
+        <a id="canvasPg" href="">New Canvas</a>
+      </div>
       </div>
     </>
   );

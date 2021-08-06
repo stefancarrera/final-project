@@ -20,9 +20,9 @@ export default class BtmNav extends React.Component {
 
   hidden() {
     if (this.state.isClicked === false) {
-      return 'menu hidden';
+      return 'menu-row hidden';
     } else {
-      return 'menu';
+      return 'menu-row';
     }
   }
 
@@ -30,10 +30,12 @@ export default class BtmNav extends React.Component {
     return (
       <div className="nav-bar user-g">
       <i type="button" onClick={this.handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x icon-black user-menu"></i>
-      <div id="menu" name="menu" className={this.hidden()}>
-        <a id="globalGallery" href="#globalGallery">Global Gallery</a>
-        <a id="myImgs" href="#userGallery">My Images</a>
-        <a id="canvasPg" href="">New Canvas</a>
+      <div className={this.hidden()}>
+        <div id="menu" name="menu" className="menu">
+          <a id="globalGallery" href="#globalGallery">Global Gallery</a>
+          <a id="myImgs" href="#userGallery">My Images</a>
+          <a id="canvasPg" href="">New Canvas</a>
+        </div>
       </div>
     </div>
     );
