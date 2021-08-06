@@ -18,8 +18,8 @@ export default class GlobalGallery extends React.Component {
   render() {
     return (
     <>
-      <div className="col headerTwo">
-        <h1 className="headerTwoH1">Welcome to the Global Gallery</h1>
+      <div className="col header-two">
+        <h1 className="header-two-h1">Welcome to the Global Gallery</h1>
         <h2>Here you can see drawings from all users!</h2>
       </div>
       <div className="row">

@@ -28,8 +28,8 @@ export default class BtmNav extends React.Component {
 
   render() {
     return (
-      <div className="navBar userG">
-      <i type="button" onClick={this.handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x iconBlack userMenu"></i>
+      <div className="nav-bar user-g">
+      <i type="button" onClick={this.handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x icon-black user-menu"></i>
       <div id="menu" name="menu" className={this.hidden()}>
         <a id="globalGallery" href="#globalGallery">Global Gallery</a>
         <a id="myImgs" href="#userGallery">My Images</a>
