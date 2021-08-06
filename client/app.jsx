@@ -26,50 +26,58 @@ export default class App extends React.Component {
   renderPage() {
     const { route } = this.state;
     if (route.path === '') {
-      return <Canvas />;
+      return (
+      <div className="top-div-canvas">
+        <Header />
+        <Canvas />
+      </div>
+      );
     }
     if (route.path === 'userGallery') {
       return (
-       <>
+       <div className="top-div">
+        <Header />
         <UserGallery />
         <BtmNav />
-      </>
+      </div>
       );
     }
     if (route.path === 'drawings') {
       const drawingId = route.params.get('drawingId');
       return (
-      <>
+      <div className="top-div">
+      <Header />
       <ImgPg drawingId={drawingId} />
       <BtmNav />
-      </>
+      </div>
       );
     }
     if (route.path === 'globalGallery') {
       return (
-      <>
+      <div className="top-div">
+      <Header />
       <GlobalGallery />
       <BtmNav />
-      </>
+      </div>
       );
     }
     if (route.path === 'glbdrawings') {
       const drawingId = route.params.get('drawingId');
       return (
-        <>
+        <div className="top-div">
+        <Header />
         <GlbImgPg drawingId={drawingId}/>
         <BtmNav />
-        </>
+        </div>
       );
     }
   }
 
   render() {
     return (
-    <div className="top-div">
-      <Header />
+    <>
       { this.renderPage() }
-    </div>
+    </>
     );
   }
 }
