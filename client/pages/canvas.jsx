@@ -10,12 +10,22 @@ function Canvas() {
   const [drawingPos, setDrawingPos] = useState([]);
   let [posIndex, setPosIndex] = useState(-1);
   const [isClicked, setIsClicked] = useState(false);
+  const [canvasSize, setCanvasSize] = useState('500');
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     contextRef.current = context;
+    window.addEventListener('resize', changeCanvasSize);
   }, []);
+
+  const changeCanvasSize = () => {
+    if (window.innerWidth <= 500) {
+      setCanvasSize(300);
+    } else {
+      setCanvasSize(500);
+    }
+  };
 
   const start = () => {
     setIsDrawing(true);
@@ -23,9 +33,26 @@ function Canvas() {
     contextRef.current.moveTo(event.clientX - canvasRef.current.offsetLeft, event.clientY - canvasRef.current.offsetTop);
   };
 
+  const touchStart = () => {
+    setIsDrawing(true);
+    contextRef.current.beginPath();
+    contextRef.current.moveTo(event.touches[0].clientX - canvasRef.current.offsetLeft, event.touches[0].clientY - canvasRef.current.offsetTop);
+  };
+
   const draw = () => {
     if (isDrawing) {
       contextRef.current.lineTo(event.clientX - canvasRef.current.offsetLeft, event.clientY - canvasRef.current.offsetTop);
+      contextRef.current.lineCap = 'round';
+      contextRef.current.lineJoin = 'round';
+      contextRef.current.strokeStyle = brushColor;
+      contextRef.current.lineWidth = brushWidth;
+      contextRef.current.stroke();
+    }
+  };
+
+  const touchDraw = () => {
+    if (isDrawing) {
+      contextRef.current.lineTo(event.touches[0].clientX - canvasRef.current.offsetLeft, event.touches[0].clientY - canvasRef.current.offsetTop);
       contextRef.current.lineCap = 'round';
       contextRef.current.lineJoin = 'round';
       contextRef.current.strokeStyle = brushColor;
@@ -95,9 +122,9 @@ function Canvas() {
 
   const hidden = () => {
     if (!isClicked) {
-      return 'menu hidden';
+      return 'canvas-menu-row hidden';
     } else {
-      return 'menu';
+      return 'canvas-menu-row';
     }
   };
 
@@ -142,32 +169,35 @@ function Canvas() {
       onMouseMove={draw}
       onMouseUp={stop}
       onMouseOut={mouseOutStop}
-      onTouchStart={start}
-      onTouchMove={draw}
+      onTouchStart={touchStart}
+      onTouchMove={touchDraw}
       onTouchEnd={stop}
       onPointerDown={start}
       onPointerMove={draw}
       onPointerUp={stop}
-      width="500"
-      height="500">
+      width={canvasSize}
+      height={canvasSize}
+      >
       </canvas>
-      <div className="navBar">
-        <i type="button" onClick={pickBrush} title="Brush Tool" className="fas fa-paint-brush fa-2x iconWhite"></i>
-        <i type="button" onClick={pickEraser} title="Eraser Tool" className="fas fa-eraser fa-2x iconPink"></i>
-        <i type="button" onClick={paintBucket} title="Paint Bucket Tool" className="fas fa-fill-drip fa-2x iconBlack"></i>
-        <i type="button" onClick={undoStroke} title="Undo Stroke" className="fas fa-undo fa-2x iconDarkG"></i>
-        <i type="button" onClick={clearCanvas} title="Clear the Canvas" className="fas fa-times fa-2x iconRed"></i>
+      <div className="nav-bar">
+        <i type="button" onClick={pickBrush} title="Brush Tool" className="fas fa-paint-brush fa-2x icon-white"></i>
+        <i type="button" onClick={pickEraser} title="Eraser Tool" className="fas fa-eraser fa-2x icon-pink"></i>
+        <i type="button" onClick={paintBucket} title="Paint Bucket Tool" className="fas fa-fill-drip fa-2x icon-black"></i>
+        <i type="button" onClick={undoStroke} title="Undo Stroke" className="fas fa-undo fa-2x icon-dark-g"></i>
+        <i type="button" onClick={clearCanvas} title="Clear the Canvas" className="fas fa-times fa-2x icon-red"></i>
         <label htmlFor="colorPicker">Color Picker:</label>
         <input onChange={colorPicker} type="color" name="colorPicker" title="Color Picker"></input>
         <label htmlFor="widthPicker">Tool Width:</label>
-        <input onChange={widthPicker} type="range" name="widthPicker" title="Width Picker" min="1" max="50" value={brushWidth} className="widthPicker"></input>
-        <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x iconBlack"></i>
-        <div id="menu" name="menu" className={hidden()}>
-          <a id="saveImg" href="" onClick={saveImg}>Save Image</a>
-          <a id="globalGallery" href="#globalGallery">Global Gallery</a>
-          <a id="myImgs" href="#userGallery">My Images</a>
-          <a id="canvasPg" href="">New Canvas</a>
-        </div>
+        <input onChange={widthPicker} type="range" name="widthPicker" title="Width Picker" min="1" max="50" value={brushWidth} className="width-picker"></input>
+        <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x icon-black"></i>
+      </div>
+      <div className={hidden()}>
+      <div id="menu" name="menu" className="menu">
+        <a id="saveImg" href="" onClick={saveImg}>Save Image</a>
+        <a id="globalGallery" href="#globalGallery">Global Gallery</a>
+        <a id="myImgs" href="#userGallery">My Images</a>
+        <a id="canvasPg" href="">New Canvas</a>
+      </div>
       </div>
     </>
   );

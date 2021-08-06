@@ -20,8 +20,8 @@ export default class GlbImgPg extends React.Component {
     const drawing = this.state.drawing[0].drawing;
     return (
       <div className="col">
-        <img onClick={this.handleClick} src={drawing.slice(14)} className="imgPgImg"></img>
-        <div className="miniNav">
+        <img onClick={this.handleClick} src={drawing.slice(14)} className="img-pg-img"></img>
+        <div className="mini-nav">
         </div>
       </div>
     );
