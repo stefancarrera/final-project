@@ -16,7 +16,8 @@ function Canvas() {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     contextRef.current = context;
-    window.addEventListener('resize', changeCanvasSize);
+    changeCanvasSize();
+    window.addEventListener('resize', changeCanvasSize());
   }, []);
 
   const changeCanvasSize = () => {
@@ -163,6 +164,7 @@ function Canvas() {
 
   return (
     <>
+    <div className="canvas-div">
       <canvas
       ref={canvasRef}
       onMouseDown={start}
@@ -179,7 +181,8 @@ function Canvas() {
       height={canvasSize}
       >
       </canvas>
-      <div className="nav-bar">
+    </div>
+    <div className="nav-bar">
         <i type="button" onClick={pickBrush} title="Brush Tool" className="fas fa-paint-brush fa-2x icon-white"></i>
         <i type="button" onClick={pickEraser} title="Eraser Tool" className="fas fa-eraser fa-2x icon-pink"></i>
         <i type="button" onClick={paintBucket} title="Paint Bucket Tool" className="fas fa-fill-drip fa-2x icon-black"></i>
@@ -190,15 +193,15 @@ function Canvas() {
         <label htmlFor="widthPicker">Tool Width:</label>
         <input onChange={widthPicker} type="range" name="widthPicker" title="Width Picker" min="1" max="50" value={brushWidth} className="width-picker"></input>
         <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x icon-black"></i>
-      </div>
-      <div className={hidden()}>
+    </div>
+    <div className={hidden()}>
       <div id="menu" name="menu" className="menu">
         <a id="saveImg" href="" onClick={saveImg}>Save Image</a>
         <a id="globalGallery" href="#globalGallery">Global Gallery</a>
         <a id="myImgs" href="#userGallery">My Images</a>
         <a id="canvasPg" href="">New Canvas</a>
-      </div>
-      </div>
+    </div>
+    </div>
     </>
   );
 }
