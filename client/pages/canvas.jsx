@@ -188,10 +188,14 @@ function Canvas() {
         <i type="button" onClick={paintBucket} title="Paint Bucket Tool" className="fas fa-fill-drip fa-2x icon-black"></i>
         <i type="button" onClick={undoStroke} title="Undo Stroke" className="fas fa-undo fa-2x icon-dark-g"></i>
         <i type="button" onClick={clearCanvas} title="Clear the Canvas" className="fas fa-times fa-2x icon-red"></i>
+        <div>
         <label htmlFor="colorPicker">Color Picker:</label>
-        <input onChange={colorPicker} type="color" name="colorPicker" title="Color Picker"></input>
+        <input onChange={colorPicker} type="color" name="colorPicker" title="Color Picker" className="color-picker"></input>
+        </div>
+        <div>
         <label htmlFor="widthPicker">Tool Width:</label>
         <input onChange={widthPicker} type="range" name="widthPicker" title="Width Picker" min="1" max="50" value={brushWidth} className="width-picker"></input>
+        </div>
         <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x icon-black"></i>
     </div>
     <div className={hidden()}>

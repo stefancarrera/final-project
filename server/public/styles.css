@@ -222,9 +222,17 @@ img {
   justify-content: center;
 }
 
+.width-picker {
+  margin-left: 0.5rem;
+}
+
+.color-picker {
+  margin-left: 0.5rem;
+}
+
 @media screen and (max-width: 500px) {
   .canvas-menu-row {
-    top: 540px;
+    top: 570px;
   }
 
   canvas {
