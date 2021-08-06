@@ -20,6 +20,7 @@ i {
   color: white;
   font-size: x-large;
   text-decoration: none;
+  margin: 0.5rem 0.5rem;
 }
 
 i:hover {
@@ -252,5 +253,19 @@ img {
 @media screen and (min-width: 768px) {
   .top-div {
     width: 100%;
+  }
+}
+
+@media screen and (max-height: 500px) {
+  .top-div-canvas {
+    top: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  canvas {
+    width: 300px;
+    height: 300px;
   }
 }
