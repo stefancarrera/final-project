@@ -38,9 +38,6 @@ A simple web drawing app that allows the user to doodle with different colors in
 -	More brush options
 -	Different canvas sizes
 
-## System Requirements
--	Node.js
-
 ## Getting Started
 1. Clone the repository.
 
