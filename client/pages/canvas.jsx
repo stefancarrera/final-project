@@ -77,6 +77,8 @@ function Canvas() {
       contextRef.current.stroke();
       contextRef.current.closePath();
       setIsDrawing(false);
+      setDrawingPos(drawingPos => [...drawingPos, contextRef.current.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)]);
+      setPosIndex(posIndex += 1);
     }
   };
 
@@ -140,6 +142,8 @@ function Canvas() {
   const paintBucket = () => {
     contextRef.current.fillStyle = lastBrush;
     contextRef.current.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    setDrawingPos(drawingPos => [...drawingPos, contextRef.current.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)]);
+    setPosIndex(posIndex += 1);
   };
 
   const saveImg = () => {
@@ -155,9 +159,6 @@ function Canvas() {
       },
       body: JSON.stringify(imgObj)
     })
-      .then(response => response.json())
-      // eslint-disable-next-line no-console
-      .then(data => console.log(data))
       .catch(err => console.error(err));
     clearCanvas();
   };
@@ -183,26 +184,25 @@ function Canvas() {
       </canvas>
     </div>
     <div className="nav-bar">
-        <i type="button" onClick={pickBrush} title="Brush Tool" className="fas fa-paint-brush fa-2x icon-white"></i>
-        <i type="button" onClick={pickEraser} title="Eraser Tool" className="fas fa-eraser fa-2x icon-pink"></i>
-        <i type="button" onClick={paintBucket} title="Paint Bucket Tool" className="fas fa-fill-drip fa-2x icon-black"></i>
-        <i type="button" onClick={undoStroke} title="Undo Stroke" className="fas fa-undo fa-2x icon-dark-g"></i>
-        <i type="button" onClick={clearCanvas} title="Clear the Canvas" className="fas fa-times fa-2x icon-red"></i>
-        <div>
+        <a type="button" onClick={pickBrush} title="Brush Tool" className="fas fa-paint-brush fa-2x icon-green"></a>
+        <a type="button" onClick={pickEraser} title="Eraser Tool" className="fas fa-eraser fa-2x icon-pink"></a>
+        <a type="button" onClick={paintBucket} title="Paint Bucket Tool" className="fas fa-fill-drip fa-2x icon-black"></a>
+        <a type="button" onClick={undoStroke} title="Undo Stroke" className="fas fa-undo fa-2x icon-dark-g"></a>
+        <a type="button" onClick={clearCanvas} title="Clear the Canvas" className="fas fa-times fa-2x icon-red"></a>
+        <form>
         <label htmlFor="colorPicker">Color Picker:</label>
         <input onChange={colorPicker} type="color" name="colorPicker" title="Color Picker" className="color-picker"></input>
-        </div>
-        <div>
+        </form>
+        <form>
         <label htmlFor="widthPicker">Tool Width:</label>
         <input onChange={widthPicker} type="range" name="widthPicker" title="Width Picker" min="1" max="50" value={brushWidth} className="width-picker"></input>
-        </div>
-        <i type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x icon-black"></i>
+        </form>
+        <a type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x icon-black"></a>
     </div>
     <div className={hidden()}>
       <div id="menu" name="menu" className="menu">
         <a id="saveImg" href="" onClick={saveImg}>Save Image</a>
-        <a id="globalGallery" href="#globalGallery">Global Gallery</a>
-        <a id="myImgs" href="#userGallery">My Images</a>
+        <a id="myImgs" href="#userGallery">All Images</a>
         <a id="canvasPg" href="">New Canvas</a>
     </div>
     </div>
