@@ -52,7 +52,7 @@ img {
   left: 0;
   margin-right: auto;
   margin-left: auto;
-  height: auto;
+  height: 100%;
 }
 
 .top-div-canvas {
@@ -64,7 +64,7 @@ img {
   left: 0;
   margin-right: auto;
   margin-left: auto;
-  height: auto;
+  height: 100%;
 }
 
 .header {
@@ -163,7 +163,7 @@ img {
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  top: 449px;
+  top: -201px;
   position: absolute;
 }
 
@@ -202,7 +202,7 @@ img {
 
 @media screen and (max-width: 500px) {
   .canvas-menu-row {
-    top: 537px;
+    top: -202px;
   }
 
   canvas {
@@ -221,16 +221,6 @@ img {
   .img-pg-img {
     width: 300px;
     height: 300px;
-  }
-
-  .top-div-canvas {
-    height: 100%;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .top-div {
-    width: 100%;
   }
 }
 

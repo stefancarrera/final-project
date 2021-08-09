@@ -198,12 +198,12 @@ function Canvas() {
         <input onChange={widthPicker} type="range" name="widthPicker" title="Width Picker" min="1" max="50" value={brushWidth} className="width-picker"></input>
         </form>
         <a type="button" onClick={handleClick} id="menuBtn" name="menuBtn" className="fas fa-bars fa-2x icon-black"></a>
-    </div>
-    <div className={hidden()}>
+     <div className={hidden()}>
       <div id="menu" name="menu" className="menu">
         <a id="saveImg" href="" onClick={saveImg}>Save Drawing</a>
         <a id="myImgs" href="#userGallery">Gallery</a>
         <a id="canvasPg" href="">New Canvas</a>
+     </div>
     </div>
     </div>
     </>
