@@ -202,7 +202,7 @@ function Canvas() {
     <div className={hidden()}>
       <div id="menu" name="menu" className="menu">
         <a id="saveImg" href="" onClick={saveImg}>Save Image</a>
-        <a id="myImgs" href="#userGallery">All Images</a>
+        <a id="myImgs" href="#userGallery">Gallery</a>
         <a id="canvasPg" href="">New Canvas</a>
     </div>
     </div>
