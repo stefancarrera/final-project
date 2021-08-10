@@ -4,7 +4,8 @@ A web application for people who want to doodle!
 
 ## About the project
 
-A simple web drawing app that allows the user to doodle with different colors in a square and save their drawings for others to see and download. 
+A simple web drawing app that allows the user to doodle with different colors in a square and save their drawings for others to see and download.
+
 [5 by 5 Sketch]( https://five-by-five-sketch.herokuapp.com/)
 
 ## Technologies Used
