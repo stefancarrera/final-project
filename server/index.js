@@ -4,8 +4,8 @@ const pg = require('pg');
 const jsonMiddleware = express.json();
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
-const fs = require('fs');
 const ClientError = require('./client-error');
+const AWS = require('aws-sdk');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -78,6 +78,35 @@ app.delete('/api/drawings/:drawingId', (req, res, next) => {
   if (!Number.isInteger(drawingId) || drawingId < 1) {
     throw new ClientError(400, 'drawingId must be a positive integer');
   }
+
+  const sqlOne = `
+  select "drawing"
+  from "drawings"
+  where "drawingId" = $1
+  `;
+  const paramsOne = [drawingId];
+  db.query(sqlOne, paramsOne)
+    .then(result => {
+      const [url] = result.rows;
+      const urlKey = url.drawing.replace('https://5b5drawings.s3.us-east-2.amazonaws.com/', '');
+
+      AWS.config.update({
+        accessKeyId: process.env.AWS_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_KEY,
+        region: process.env.AWS_BUCKET_REGION
+      });
+
+      const s3 = new AWS.S3();
+      const key = urlKey;
+      const param = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: key
+      };
+      s3.deleteObject(param, (err, data) => {
+        if (err) console.error(err);
+      });
+    });
+
   const sql = `
   delete from "drawings"
     where "drawingId" = $1
@@ -99,20 +128,40 @@ app.delete('/api/drawings/:drawingId', (req, res, next) => {
 app.post('/api/saveImg', (req, res, next) => {
   const { imgObj } = req.body;
   const buff = Buffer.from(imgObj, 'base64');
-  const newImg = `server/public/images/img${Date.now()}.png`;
-  fs.writeFile(newImg, buff, err => {
+
+  AWS.config.update({
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_KEY,
+    region: process.env.AWS_BUCKET_REGION
+  });
+
+  const s3 = new AWS.S3();
+  const key = `img${Date.now()}.png`;
+
+  const params = {
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: key,
+    Body: buff,
+    ACL: 'public-read',
+    ContentEncoding: 'base64',
+    ContentType: 'image/png',
+    ContentDisposition: 'attachment'
+  };
+
+  s3.putObject(params, function (err, data) {
     if (err) {
       console.error(err);
     }
   });
-  const url = newImg;
+
+  const url = `https://5b5drawings.s3.us-east-2.amazonaws.com/${key}`;
   const sql = `
   insert into "drawings" ("userId", "drawing")
   values (1, $1)
   returning *
   `;
-  const params = [url];
-  db.query(sql, params)
+  const param = [url];
+  db.query(sql, param)
     .then(result => {
       const [newImage] = result.rows;
       res.status(201).json(newImage);

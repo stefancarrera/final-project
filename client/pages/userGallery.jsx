@@ -29,7 +29,7 @@ export default class UserGallery extends React.Component {
           this.state.drawings.map(drawings => (
             <div key={drawings.drawingId} className="col">
               <a href={`#drawings?drawingId=${drawings.drawingId}`}>
-              <img src={drawings.drawing.slice(14)}></img>
+              <img src={drawings.drawing}></img>
               </a>
             </div>))
           }
