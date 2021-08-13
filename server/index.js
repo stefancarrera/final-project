@@ -144,7 +144,8 @@ app.post('/api/saveImg', (req, res, next) => {
     Body: buff,
     ACL: 'public-read',
     ContentEncoding: 'base64',
-    ContentType: 'image/png'
+    ContentType: 'image/png',
+    ContentDisposition: 'attachment'
   };
 
   s3.putObject(params, function (err, data) {
