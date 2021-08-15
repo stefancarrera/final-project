@@ -2,9 +2,9 @@ import React from 'react';
 import Canvas from './pages/canvas';
 import Header from './components/header';
 import UserGallery from './pages/userGallery';
-import BtmNav from './components/btmNav';
 import ImgPg from './pages/imgPg';
 import parseRoute from './lib/parse-route';
+import BtmNav from './components/btmNavHooks';
 
 export default class App extends React.Component {
   constructor(props) {
