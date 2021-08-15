@@ -18,6 +18,7 @@ A simple web drawing app that allows the user to doodle with different colors in
 -	JavaScript ES6
 -	CSS3
 -	Canvas API
+-	AWS
 
 ## Features
 -	User can draw on the canvas with the brush tool
