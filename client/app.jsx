@@ -1,12 +1,10 @@
 import React from 'react';
 import Canvas from './pages/canvas';
 import Header from './components/header';
-// import ImgPg from './pages/imgPg';
 import parseRoute from './lib/parse-route';
 import BtmNav from './components/btmNavHooks';
 import Gallery from './pages/galleryHook';
 import ImgPg from './pages/imgPgHooks';
-import ImgPgNavBar from './components/ImgPgNavBar';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -47,7 +45,6 @@ export default class App extends React.Component {
       <div className="top-div">
       <Header />
       <ImgPg drawingId={drawingId} />
-      <ImgPgNavBar drawingId={drawingId} />
       <BtmNav />
       </div>
       );
